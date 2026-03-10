@@ -1,0 +1,24 @@
+```yaml
+name: Auto Sync Fork
+on:
+  schedule:
+    - cron: '0 0 * * *'  # 每天UTC 0点（北京时间8点）
+  workflow_dispatch:      # 允许手动触发
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Sync with upstream
+        run: |
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+          git remote add upstream https://github.com/kakaxi-1/IPTV.git
+          git fetch upstream
+          git merge upstream/main --no-edit
+          git push origin main
