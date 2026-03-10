@@ -4,7 +4,7 @@
 name: Auto Sync Fork
 on:
   schedule:
-    - cron: '0 0 * * *'  # 每天UTC 0点（北京时间8点）
+    - cron: '0 * * * *'  # 每小时UTC 0点（北京时间8点）
   workflow_dispatch:      # 允许手动触发
 
 jobs:
